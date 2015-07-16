@@ -14,7 +14,7 @@ public class LinesPanel extends JPanel {
     private ArrayList<Point> pointBList;
     private ArrayList<Integer> radiousList;
     private int counter;
-    private int previewRadious;
+    private int previewRadius;
     private Point pointA = null, pointB;
 
     //constructor
@@ -24,7 +24,7 @@ public class LinesPanel extends JPanel {
         pointAList = new ArrayList<Point>();
         pointBList = new ArrayList<Point>();
         radiousList = new ArrayList<Integer>();
-        previewRadious = 0;
+        previewRadius = 0;
         //create new listener
         LineListener listener = new LineListener();
         //add mouse listener
@@ -50,10 +50,10 @@ public class LinesPanel extends JPanel {
         //if the points are not null
 
         if(pointA != null && pointB != null) {
-            page.setColor(Color.RED);
-            //draw the circle
-            page.fillOval(pointA.x - previewRadious,pointA.y - previewRadious,previewRadious * 2, previewRadious * 2);
             page.setColor(Color.white);
+            //draw the circle
+            page.fillOval(pointA.x - previewRadius,pointA.y - previewRadius,previewRadius * 2, previewRadius * 2);
+            page.setColor(Color.red);
             //draw the line
             page.drawLine(pointA.x, pointA.y,pointB.x,pointB.y);
 
@@ -96,7 +96,7 @@ public class LinesPanel extends JPanel {
             //get ending point
             pointB = event.getPoint();
             //calculate the diameter using the distance formula
-            previewRadious = (int) Math.sqrt(Math.pow((pointB.x - pointA.x), 2) + Math.pow((pointB.y - pointA.y), 2));
+            previewRadius = (int) Math.sqrt(Math.pow((pointB.x - pointA.x), 2) + Math.pow((pointB.y - pointA.y), 2));
             //repaint the screen when dragged to display new line position
             repaint();
 
@@ -105,17 +105,17 @@ public class LinesPanel extends JPanel {
         public void mouseClicked(MouseEvent event) {}
         public void mouseReleased(MouseEvent event) {
             //add the radious to the list
-            radiousList.add(previewRadious);
+            radiousList.add(previewRadius);
             //add new line to array list
             pointAList.add(pointA);
             //get the point where the mouse was released
             pointBList.add(pointB);
             //increase counter for the loop
             counter ++;
-            //reset points
+            //reset preview variables
             pointB = null;
             pointA = null;
-            previewRadious = 0;
+            previewRadius = 0;
             //repaint the page
             repaint();
 
